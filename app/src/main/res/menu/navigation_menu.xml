@@ -3,18 +3,18 @@
     <item
         android:icon="@drawable/home"
         android:title="@string/home"
-        android:id="@+id/main_fragment"
+        android:id="@+id/main_fragment_menu"
         />
 
     <item
         android:icon="@drawable/forum"
         android:title="@string/chats"
-        android:id="@+id/chats_fragment"
+        android:id="@+id/chats_fragment_menu"
         />
 
     <item
         android:icon="@drawable/feed"
         android:title="@string/feed"
-        android:id="@+id/photographer_fragment"
+        android:id="@+id/photographer_fragment_menu"
         />
 </menu>

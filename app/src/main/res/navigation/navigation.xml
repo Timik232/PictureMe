@@ -15,12 +15,12 @@
         app:destination="@id/mainFragment" />
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.example.coursework.MainFragment"
+        android:name="com.example.coursework.ListFragment"
         android:label="Лента"
         tools:layout="@layout/photographers_fragment" />
     <fragment
         android:id="@+id/chatsFragment"
-        android:name="com.example.coursework.MainFragment"
+        android:name="com.example.coursework.ChatFragment"
         android:label="Чаты"
         tools:layout="@layout/chats_fragment" />
     <action
