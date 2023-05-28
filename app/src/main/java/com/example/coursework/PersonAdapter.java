@@ -1,7 +1,10 @@
 package com.example.coursework;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,13 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonViewHolder> {
-
     private List<Chat_Person> data = new ArrayList<>();
+    private final LayoutInflater inflater;
 
     public void setData(List<Chat_Person> newData) {
         data = newData;
         notifyDataSetChanged();
     }
+
+
 
     @NonNull
     @Override
@@ -51,6 +56,10 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+    public PersonAdapter(Context context, List<Chat_Person> items){
+        this.inflater = LayoutInflater.from(context);
+        this.data = items;
     }
 }
 

@@ -8,21 +8,6 @@
     android:gravity="center"
     tools:context=".MainActivity">
 
-    <fragment
-        android:id="@+id/fragmentContainerView"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/navigation_menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/navigation"
-        tools:layout_conversion_absoluteHeight="8dp"
-        tools:layout_conversion_absoluteWidth="8dp" />
-
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation_menu"
         android:layout_width="match_parent"
@@ -35,4 +20,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navigation_menu" />
+
+    <fragment
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/navigation"
+        tools:layout_conversion_absoluteHeight="8dp"
+        tools:layout_conversion_absoluteWidth="8dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

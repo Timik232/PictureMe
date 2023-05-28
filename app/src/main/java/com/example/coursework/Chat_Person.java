@@ -2,11 +2,11 @@ package com.example.coursework;
 
 public class Chat_Person {
     private String name;
-    private String photo;
+    private int photo;
     private boolean isLiked;
     private String last_message;
     private String last_date;
-    public Chat_Person(String name, String photo, String last_message, String last_date){
+    public Chat_Person(String name, int photo, String last_message, String last_date){
         this.name = name;
         this.photo = photo;
         this.isLiked = false;
@@ -24,6 +24,10 @@ public class Chat_Person {
 
     public String getName() {
         return name;
+    }
+
+    public int getPhoto() {
+        return photo;
     }
 
     public void setName(String name) {

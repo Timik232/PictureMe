@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.coursework.databinding.ChatsFragmentBinding;
 
@@ -15,16 +18,21 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chats_fragment, container, false);
+        return view;
+    }
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
         PersonService personService = new PersonService();
         ChatsFragmentBinding binding = ChatsFragmentBinding.inflate(getLayoutInflater());
+        RecyclerView itemsList =  binding.recyclerView;
         LinearLayoutManager manager = new LinearLayoutManager(requireContext()); // LayoutManager
-        PersonAdapter adapter = new PersonAdapter(); // Создание объекта
-        adapter.setData(personService.getPersons()); // Заполнение данными
+        NewPersonAdapter adapter = new NewPersonAdapter(requireContext(), personService.getPersons()); // Создание объекта
+        //adapter.setData(personService.getPersons()); // Заполнение данными
+//        StaggeredGridLayoutManager layoutManager1 = new StaggeredGridLayoutManager(3,1);
+//        itemsList.setLayoutManager(layoutManager1);
 
-        binding.recyclerView.setLayoutManager(manager); // Назначение LayoutManager для RecyclerView
-        binding.recyclerView.setAdapter(adapter);
-
-        return view;
+        itemsList.setLayoutManager(manager); // Назначение LayoutManager для RecyclerView
+        itemsList.setAdapter(adapter);
     }
 }
 
