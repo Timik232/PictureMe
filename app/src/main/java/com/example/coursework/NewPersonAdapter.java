@@ -1,5 +1,7 @@
 package com.example.coursework;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.coursework.databinding.ChatsFragmentBinding;
 import com.example.coursework.databinding.ItemChatBinding;
 
@@ -61,6 +64,8 @@ public class NewPersonAdapter extends RecyclerView.Adapter<NewPersonAdapter.View
         holder.fio.setText(item.getName());
         holder.date.setText(item.getLast_date());
         holder.imageView.setImageResource(item.getPhoto());
+        Glide.with(holder.imageView.getContext()).load(item.getPhoto()).circleCrop().into(holder.imageView);
+
     }
     @Override
     public int getItemCount() {

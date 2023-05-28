@@ -3,6 +3,8 @@ package com.example.coursework;
 
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,12 +15,12 @@ public class PersonService {
 
     public PersonService() {
         Random random = new Random();
-        int[] imageIds = {R.drawable.ava, R.drawable.rss, R.drawable.director};
+        int[] imageIds = {R.drawable.ava, R.drawable.rss, R.drawable.director, R.drawable.kuplinov, R.drawable.valera, R.drawable.stahli,R.drawable.dasha};
         for (int i = 1; i <= 20; i++) {
             int number = i + 9;
             Chat_Person person = new Chat_Person(
                     NAMES.get(i % NAMES.size()),
-                    imageIds[random.nextInt(3)],
+                    imageIds[random.nextInt(7)],
                     "Пустое сообщение",
                     "11:" + number
             );

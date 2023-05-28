@@ -1,6 +1,7 @@
 package com.example.coursework;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,22 +18,18 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.chats_fragment, container, false);
-        return view;
+        return inflater.inflate(R.layout.chats_fragment, container, false);
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         PersonService personService = new PersonService();
-        ChatsFragmentBinding binding = ChatsFragmentBinding.inflate(getLayoutInflater());
-        RecyclerView itemsList =  binding.recyclerView;
+        RecyclerView itemsList =  view.findViewById(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(requireContext()); // LayoutManager
         NewPersonAdapter adapter = new NewPersonAdapter(requireContext(), personService.getPersons()); // Создание объекта
-        //adapter.setData(personService.getPersons()); // Заполнение данными
-//        StaggeredGridLayoutManager layoutManager1 = new StaggeredGridLayoutManager(3,1);
-//        itemsList.setLayoutManager(layoutManager1);
-
+        Log.d("Chat", "Запустили");
         itemsList.setLayoutManager(manager); // Назначение LayoutManager для RecyclerView
         itemsList.setAdapter(adapter);
+        Log.d("Chat", "Прикрепили");
     }
 }
 
