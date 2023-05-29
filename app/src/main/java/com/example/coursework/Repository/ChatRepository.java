@@ -2,6 +2,7 @@ package com.example.coursework.Repository;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class ChatRepository {
     private final chatDAO chatPersonDao;
-    private MutableLiveData<List<DataChatPerson>> allChatPersonsLiveData;
+    private LiveData<List<DataChatPerson>> allChatPersonsLiveData;
 
     public ChatRepository(Context context) {
         ChatsDataBase db = ChatsDataBase.getDatabase(context);
@@ -27,6 +28,7 @@ public class ChatRepository {
         chatPersonDao.saveChat(new DataChatPerson("Бретт Оутри", R.drawable.stahli,  "Классно получилось", "22:40"));
         chatPersonDao.saveChat(new DataChatPerson("Дарья Аникова", R.drawable.dasha,  "Рад помочь) ", "00:00"));
         updateChatPersonsLiveData();
+        Log.d("Try", chatPersonDao.getChat("Бретт Оутри").toString());
     }
 
     public LiveData<List<DataChatPerson>> getAllChatPersonsDataLiveData() {
@@ -39,10 +41,12 @@ public class ChatRepository {
 
     private void updateChatPersonsLiveData() {
         // Получаем данные из базы данных и устанавливаем их в LiveData
-        List<DataChatPerson> chatPersons = chatPersonDao.getAllChatPersons();
-        allChatPersonsLiveData.setValue(chatPersons);
+//        List<DataChatPerson> chatPersons = chatPersonDao.getAllChatPersons();
+//        allChatPersonsLiveData.postValue(chatPersons);
+        allChatPersonsLiveData = chatPersonDao.getAllChatPersons();
+//        allChatPersonsLiveData.setValue(chatPersons);
     }
-    public List<DataChatPerson> getAllChatPersons() {
+    public LiveData<List<DataChatPerson>> getAllChatPersons() {
         return chatPersonDao.getAllChatPersons();
     }
     public void updateChat(DataChatPerson chat) {

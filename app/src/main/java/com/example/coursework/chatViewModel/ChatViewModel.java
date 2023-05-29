@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -23,17 +24,30 @@ public class ChatViewModel extends ViewModel {
     private Handler mainHandler;
 
     public ChatViewModel(Context context) {
-        chatRepository = new ChatRepository(context);
         executor = Executors.newSingleThreadExecutor();
         mainHandler = new Handler(Looper.getMainLooper());
-        loadChats();
+        Log.d("VIEWMODEL", "Запущена модель");
+//        chatRepository = new ChatRepository(context);
+//        loadChats();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                chatRepository = new ChatRepository(context);
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadChats();
+                    }
+                });
+            }
+        });
     }
 
     public LiveData<List<DataChatPerson>> getAllChatPersonsLiveData() {
         return allChatPersonsLiveData;
     }
     public List<DataChatPerson> getAllChatPersons() {
-        return chatRepository.getAllChatPersons();
+        return chatRepository.getAllChatPersons().getValue();
     }
     public void addChatPerson(DataChatPerson chatPerson) {
         executor.execute(new Runnable() {

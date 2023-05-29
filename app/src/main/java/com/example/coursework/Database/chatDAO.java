@@ -21,6 +21,6 @@ public interface chatDAO {
     DataChatPerson getChat(String name);
 
     @Query("SELECT * FROM texts")
-    List<DataChatPerson> getAllChatPersons();
+    LiveData<List<DataChatPerson>> getAllChatPersons();
 
 }

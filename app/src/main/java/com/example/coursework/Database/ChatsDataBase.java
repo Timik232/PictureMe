@@ -14,7 +14,7 @@ public abstract class ChatsDataBase extends RoomDatabase {
     public static synchronized ChatsDataBase getDatabase(Context context) {
         if (db == null) {
             db = Room.databaseBuilder(context, ChatsDataBase.class, dbName)
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration().allowMainThreadQueries()
                     .build();
         }
         return db;
