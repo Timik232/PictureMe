@@ -3,7 +3,7 @@ package com.example.coursework;
 
 import android.util.Log;
 
-import com.bumptech.glide.Glide;
+import com.example.coursework.Repository.Chat_Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,7 @@ public class PersonService {
         for (int i = 1; i <= 20; i++) {
             int number = i + 9;
             Chat_Person person = new Chat_Person(
+                    i,
                     NAMES.get(i % NAMES.size()),
                     imageIds[random.nextInt(7)],
                     "Пустое сообщение",

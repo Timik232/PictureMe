@@ -1,4 +1,4 @@
-package com.example.coursework;
+package com.example.coursework.Repository;
 
 public class Chat_Person {
     private String name;
@@ -6,7 +6,9 @@ public class Chat_Person {
     private boolean isLiked;
     private String last_message;
     private String last_date;
-    public Chat_Person(String name, int photo, String last_message, String last_date){
+    private int id;
+    public Chat_Person(int id, String name, int photo, String last_message, String last_date){
+        this.id = id;
         this.name = name;
         this.photo = photo;
         this.isLiked = false;
@@ -40,6 +42,10 @@ public class Chat_Person {
 
     public void setLiked(boolean liked) {
         isLiked = liked;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getLast_date() {

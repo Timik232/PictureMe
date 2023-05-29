@@ -8,7 +8,7 @@
     android:paddingStart="10dp"
     android:paddingTop="5dp"
     android:paddingEnd="10dp"
-    tools:context=".Chat_Person"
+    tools:context=".Repository.Chat_Person"
     android:paddingBottom="5dp">
 
     <ImageView
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
         android:paddingTop="8dp"
-        android:text="Тимур Комолов"
+        android:text="@{Chat_Person.name}"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/ava"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:paddingStart="12dp"
-        android:text="Текст сообщения"
+        android:text="@{Chat_Person.last_message}"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/ava"
         app:layout_constraintTop_toBottomOf="@id/fio" />
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:paddingStart="2dp"
-        android:text="19:30"
+        android:text="@{Chat_Person.last_date}"
         android:textSize="14sp"
         android:gravity="center"
         app:layout_constraintStart_toEndOf="@id/person_text"

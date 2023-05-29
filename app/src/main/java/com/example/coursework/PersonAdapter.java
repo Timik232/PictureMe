@@ -1,67 +1,73 @@
 package com.example.coursework;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.coursework.databinding.ItemChatBinding;
+import com.bumptech.glide.Glide;
+import com.example.coursework.Database.DataChatPerson;
+import com.example.coursework.Repository.Chat_Person;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonViewHolder> {
-    private List<Chat_Person> data = new ArrayList<>();
-    private final LayoutInflater inflater;
+public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        public String TAG = "RecyclerAdapter";
+        final TextView fio;
+        final TextView text;
+        final TextView date;
+        final ImageView imageView;
 
-    public void setData(List<Chat_Person> newData) {
-        data = newData;
-        notifyDataSetChanged();
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(imageView.getContext(), fio.getText(), Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, fio.getText().toString());
+                }
+            });
+            this.fio = itemView.findViewById(R.id.fio);
+            this.text = itemView.findViewById(R.id.person_text);
+            this.date = itemView.findViewById(R.id.person_time);
+            this.imageView = itemView.findViewById(R.id.ava);
+        }
     }
 
-
+    private final LayoutInflater inflater;
+    private final List<DataChatPerson> items;
+    public PersonAdapter(Context context, List<DataChatPerson> items) {
+        this.inflater = LayoutInflater.from(context);
+        this.items = items;
+    }
 
     @NonNull
     @Override
-    public PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemChatBinding binding = ItemChatBinding.inflate(inflater, parent, false);
-        return new PersonViewHolder(binding);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.item_chat, parent, false);
+        return new ViewHolder(view);
     }
-
     @Override
-    public void onBindViewHolder(PersonViewHolder holder, int position) {
-        Chat_Person person = data.get(position);
-        //holder.binding.setName(person);
-        holder.binding.fio.setText(person.getName());
-        holder.binding.personText.setText(person.getLast_message());
-        holder.binding.personTime.setText(person.getLast_date());
-        //holder.binding.executePendingBindings();
-    }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        DataChatPerson item = items.get(position);
+        holder.text.setText(item.getLast_message());
+        holder.fio.setText(item.getName());
+        holder.date.setText(item.getLast_date());
+        holder.imageView.setImageResource(item.getPhoto());
+        Glide.with(holder.imageView.getContext()).load(item.getPhoto()).circleCrop().into(holder.imageView);
 
+    }
     @Override
     public int getItemCount() {
-        return data.size();
-    }
-
-    public static class PersonViewHolder extends RecyclerView.ViewHolder {
-
-        private final ItemChatBinding binding;
-
-        public PersonViewHolder(ItemChatBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-    }
-    public PersonAdapter(Context context, List<Chat_Person> items){
-        this.inflater = LayoutInflater.from(context);
-        this.data = items;
+        return items.size();
     }
 }
-
-
 
