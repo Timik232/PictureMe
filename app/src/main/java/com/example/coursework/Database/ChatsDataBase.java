@@ -7,13 +7,13 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 @Database(entities = {DataChatPerson.class}, version = 4)
-public abstract class ChatsDataBase extends RoomDatabase {
+public abstract class AppDataBase extends RoomDatabase {
     private static final String dbName = "texts";
-    private static ChatsDataBase db;
+    private static AppDataBase db;
 
-    public static synchronized ChatsDataBase getDatabase(Context context) {
+    public static synchronized AppDataBase getDatabase(Context context) {
         if (db == null) {
-            db = Room.databaseBuilder(context, ChatsDataBase.class, dbName)
+            db = Room.databaseBuilder(context, AppDataBase.class, dbName)
                     .fallbackToDestructiveMigration().allowMainThreadQueries()
                     .build();
         }

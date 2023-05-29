@@ -39,25 +39,17 @@ public class ChatFragment extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-//        RecyclerView itemsList =  view.findViewById(R.id.recyclerView);
-//            LinearLayoutManager manager = new LinearLayoutManager(requireContext()); // LayoutManager
-////            MutableLiveData<List<DataChatPerson>> mutable = (MutableLiveData<List<DataChatPerson>>) chatViewModel.getAllChatPersons();
-//            PersonAdapter adapter = new PersonAdapter(requireContext(), chatViewModel.getAllChatPersons()
-//            ); // Создание объекта
-//            Log.d("Chat", "Запустили");
-//            itemsList.setLayoutManager(manager); // Назначение LayoutManager для RecyclerView
-//            itemsList.setAdapter(adapter);
-//            Log.d("Chat", "Прикрепили");
-        chatViewModel.getAllChatPersonsLiveData().observe(getViewLifecycleOwner(), chatPersons -> {
-            RecyclerView itemsList =  view.findViewById(R.id.recyclerView);
+        RecyclerView itemsList =  view.findViewById(R.id.recyclerView);
             LinearLayoutManager manager = new LinearLayoutManager(requireContext()); // LayoutManager
-//            MutableLiveData<List<DataChatPerson>> mutable = (MutableLiveData<List<DataChatPerson>>) chatViewModel.getAllChatPersons();
+
             PersonAdapter adapter = new PersonAdapter(requireContext(), chatViewModel.getAllChatPersons()
             ); // Создание объекта
             Log.d("Chat", "Запустили");
             itemsList.setLayoutManager(manager); // Назначение LayoutManager для RecyclerView
             itemsList.setAdapter(adapter);
             Log.d("Chat", "Прикрепили");
+        chatViewModel.getAllChatPersonsLiveData().observe(getViewLifecycleOwner(), chatPersons -> {
+            ;
         });
 
     }
