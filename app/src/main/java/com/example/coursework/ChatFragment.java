@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coursework.Database.DataChatPerson;
 import com.example.coursework.chatViewModel.ChatViewModel;
-import com.example.coursework.chatViewModel.ChatViewModelFactory;
 import com.example.coursework.databinding.ChatsFragmentBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatFragment extends Fragment {
@@ -26,9 +26,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ChatViewModelFactory factory = new ChatViewModelFactory(requireContext().getApplicationContext());
-        chatViewModel = new ViewModelProvider(this, factory).get(ChatViewModel.class);
-//        chatViewModel = new ViewModelProvider(requireActivity()).get(ChatViewModel.class);
+        chatViewModel = new ViewModelProvider(requireActivity()).get(ChatViewModel.class);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,17 +38,17 @@ public class ChatFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         RecyclerView itemsList =  view.findViewById(R.id.recyclerView);
-            LinearLayoutManager manager = new LinearLayoutManager(requireContext()); // LayoutManager
+        LinearLayoutManager manager = new LinearLayoutManager(requireContext());
+        itemsList.setLayoutManager(manager);
+        PersonAdapter adapter = new PersonAdapter(requireContext(), new ArrayList<>());
 
-            PersonAdapter adapter = new PersonAdapter(requireContext(), chatViewModel.getAllChatPersons()
-            ); // Создание объекта
             Log.d("Chat", "Запустили");
-            itemsList.setLayoutManager(manager); // Назначение LayoutManager для RecyclerView
             itemsList.setAdapter(adapter);
+
             Log.d("Chat", "Прикрепили");
-        chatViewModel.getAllChatPersonsLiveData().observe(getViewLifecycleOwner(), chatPersons -> {
-            ;
-        });
+//        chatViewModel.getAllChatPersonsLiveData().observe(getViewLifecycleOwner(), chatPersons -> {
+//            adapter.setChatPersons(chatViewModel.getAllChatPersons());
+//        });
 
     }
 }

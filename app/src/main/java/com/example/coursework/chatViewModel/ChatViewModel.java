@@ -23,7 +23,7 @@ public class ChatViewModel extends ViewModel {
     private Executor executor;
     private Handler mainHandler;
 
-    public ChatViewModel(Context context) {
+    public ChatViewModel() {
         executor = Executors.newSingleThreadExecutor();
         mainHandler = new Handler(Looper.getMainLooper());
         Log.d("VIEWMODEL", "Запущена модель");
@@ -32,7 +32,7 @@ public class ChatViewModel extends ViewModel {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                chatRepository = new ChatRepository(context);
+                chatRepository = ChatRepository.getInstance();
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {

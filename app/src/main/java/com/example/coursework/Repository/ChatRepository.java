@@ -7,7 +7,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.coursework.Database.ChatsDataBase;
+import com.example.coursework.Database.AppDataBase;
 import com.example.coursework.Database.DataChatPerson;
 import com.example.coursework.Database.chatDAO;
 import com.example.coursework.R;
@@ -19,15 +19,25 @@ public class ChatRepository {
     private final chatDAO chatPersonDao;
     private LiveData<List<DataChatPerson>> allChatPersonsLiveData;
 
-    public ChatRepository(Context context) {
-        ChatsDataBase db = ChatsDataBase.getDatabase(context);
-        chatPersonDao = db.chatDao();
+    private static ChatRepository instance;
+
+    public static ChatRepository getInstance(){
+        if (instance == null){
+            instance = new ChatRepository();
+        }
+        return instance;
+    }
+
+    private ChatRepository() {
+
+        AppDataBase db = AppDataBase.getDatabase();
+        this.chatPersonDao = db.chatDao();
+        updateChatPersonsLiveData();
         chatPersonDao.saveChat(new DataChatPerson("Кирилл Евдокимов", R.drawable.ava,  "Спасибо большое!!!", "10:00"));
         chatPersonDao.saveChat(new DataChatPerson("Ярослав Акатьев", R.drawable.rss,  "Здравствуйте!", "11:30"));
         chatPersonDao.saveChat(new DataChatPerson("Валера Чечня", R.drawable.valera,  "Ну как там с деньгами?", "12:45"));
         chatPersonDao.saveChat(new DataChatPerson("Бретт Оутри", R.drawable.stahli,  "Классно получилось", "22:40"));
         chatPersonDao.saveChat(new DataChatPerson("Дарья Аникова", R.drawable.dasha,  "Рад помочь) ", "00:00"));
-        updateChatPersonsLiveData();
         Log.d("Try", chatPersonDao.getChat("Бретт Оутри").toString());
     }
 
@@ -40,7 +50,6 @@ public class ChatRepository {
     }
 
     private void updateChatPersonsLiveData() {
-        // Получаем данные из базы данных и устанавливаем их в LiveData
 //        List<DataChatPerson> chatPersons = chatPersonDao.getAllChatPersons();
 //        allChatPersonsLiveData.postValue(chatPersons);
         allChatPersonsLiveData = chatPersonDao.getAllChatPersons();
@@ -51,6 +60,6 @@ public class ChatRepository {
     }
     public void updateChat(DataChatPerson chat) {
         chatPersonDao.updateLastMessage(chat);
-        updateChatPersonsLiveData();
+        //updateChatPersonsLiveData();
     }
 }

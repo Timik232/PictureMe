@@ -43,7 +43,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
     }
 
     private final LayoutInflater inflater;
-    private final List<DataChatPerson> items;
+    private List<DataChatPerson> items;
     public PersonAdapter(Context context, List<DataChatPerson> items) {
         this.inflater = LayoutInflater.from(context);
         this.items = items;
@@ -68,6 +68,10 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return items.size();
+    }
+    public void setChatPersons(List<DataChatPerson> chatPersons){
+        this.items = chatPersons;
+        notifyDataSetChanged();
     }
 }
 
