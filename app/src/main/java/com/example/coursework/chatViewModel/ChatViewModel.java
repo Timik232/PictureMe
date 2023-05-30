@@ -19,19 +19,12 @@ import java.util.concurrent.Executors;
 
 public class ChatViewModel extends ViewModel {
     private ChatRepository chatRepository;
-    private Executor executor;
     private Handler mainHandler;
 
     public ChatViewModel() {
-        executor = Executors.newSingleThreadExecutor();
         mainHandler = new Handler(Looper.getMainLooper());
         Log.d("VIEWMODEL", "Запущена модель");
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                chatRepository = ChatRepository.getInstance();
-            }
-        });
+        chatRepository = ChatRepository.getInstance();
     }
 
     public LiveData<List<DataChatPerson>> getAllChatPersonsLiveData() {
@@ -41,22 +34,15 @@ public class ChatViewModel extends ViewModel {
         return chatRepository.getAllChatPersons().getValue();
     }
     public void addChatPerson(DataChatPerson chatPerson) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(() -> {
                 chatRepository.addChat(chatPerson);
-
-            }
-        });
+        }).start();
     }
     public void updateChatPerson(DataChatPerson chatPerson) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(() -> {
                 chatRepository.updateChat(chatPerson);
+        }).start();
 
-            }
-        });
     }
 }
 
