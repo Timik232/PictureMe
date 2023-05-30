@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.coursework.Database.DataChatPerson;
 import com.example.coursework.Repository.Chat_Person;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
@@ -44,9 +45,9 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
     private final LayoutInflater inflater;
     private List<DataChatPerson> items;
-    public PersonAdapter(Context context, List<DataChatPerson> items) {
+    public PersonAdapter(Context context) {
         this.inflater = LayoutInflater.from(context);
-        this.items = items;
+        this.items = new ArrayList<>();
     }
 
     @NonNull
@@ -70,7 +71,8 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         return items.size();
     }
     public void setChatPersons(List<DataChatPerson> chatPersons){
-        this.items = chatPersons;
+        this.items.clear();
+        this.items.addAll(chatPersons);
         notifyDataSetChanged();
     }
 }

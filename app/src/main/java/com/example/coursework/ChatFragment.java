@@ -40,15 +40,16 @@ public class ChatFragment extends Fragment {
         RecyclerView itemsList =  view.findViewById(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(requireContext());
         itemsList.setLayoutManager(manager);
-        PersonAdapter adapter = new PersonAdapter(requireContext(), new ArrayList<>());
+        PersonAdapter adapter = new PersonAdapter(requireContext());
 
             Log.d("Chat", "Запустили");
             itemsList.setAdapter(adapter);
 
             Log.d("Chat", "Прикрепили");
-//        chatViewModel.getAllChatPersonsLiveData().observe(getViewLifecycleOwner(), chatPersons -> {
-//            adapter.setChatPersons(chatViewModel.getAllChatPersons());
-//        });
+//            Log.d("whyu", chatViewModel.getAllChatPersons().toString());
+        chatViewModel.getAllChatPersonsLiveData().observe(getViewLifecycleOwner(), chatPersons -> {
+            adapter.setChatPersons(chatPersons);
+        });
 
     }
 }

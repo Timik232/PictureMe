@@ -19,7 +19,6 @@ import java.util.concurrent.Executors;
 
 public class ChatViewModel extends ViewModel {
     private ChatRepository chatRepository;
-    private LiveData<List<DataChatPerson>> allChatPersonsLiveData;
     private Executor executor;
     private Handler mainHandler;
 
@@ -27,24 +26,16 @@ public class ChatViewModel extends ViewModel {
         executor = Executors.newSingleThreadExecutor();
         mainHandler = new Handler(Looper.getMainLooper());
         Log.d("VIEWMODEL", "Запущена модель");
-//        chatRepository = new ChatRepository(context);
-//        loadChats();
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 chatRepository = ChatRepository.getInstance();
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadChats();
-                    }
-                });
             }
         });
     }
 
     public LiveData<List<DataChatPerson>> getAllChatPersonsLiveData() {
-        return allChatPersonsLiveData;
+        return loadChats();
     }
     public List<DataChatPerson> getAllChatPersons() {
         return chatRepository.getAllChatPersons().getValue();
@@ -54,12 +45,7 @@ public class ChatViewModel extends ViewModel {
             @Override
             public void run() {
                 chatRepository.addChat(chatPerson);
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadChats();
-                    }
-                });
+
             }
         });
     }
@@ -68,23 +54,12 @@ public class ChatViewModel extends ViewModel {
             @Override
             public void run() {
                 chatRepository.updateChat(chatPerson);
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadChats();
-                    }
-                });
+
             }
         });
     }
-    protected void loadChats(){
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                allChatPersonsLiveData = chatRepository.getAllChatPersonsDataLiveData();
-            }
-        });
-
+    protected LiveData<List<DataChatPerson>> loadChats(){
+        return chatRepository.getAllChatPersonsDataLiveData();
     }
 }
 

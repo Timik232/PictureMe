@@ -46,20 +46,15 @@ public class ChatRepository {
     }
     public void addChat(DataChatPerson chat) {
         chatPersonDao.saveChat(chat);
-        updateChatPersonsLiveData();
     }
 
     private void updateChatPersonsLiveData() {
-//        List<DataChatPerson> chatPersons = chatPersonDao.getAllChatPersons();
-//        allChatPersonsLiveData.postValue(chatPersons);
         allChatPersonsLiveData = chatPersonDao.getAllChatPersons();
-//        allChatPersonsLiveData.setValue(chatPersons);
     }
     public LiveData<List<DataChatPerson>> getAllChatPersons() {
         return chatPersonDao.getAllChatPersons();
     }
     public void updateChat(DataChatPerson chat) {
         chatPersonDao.updateLastMessage(chat);
-        //updateChatPersonsLiveData();
     }
 }
