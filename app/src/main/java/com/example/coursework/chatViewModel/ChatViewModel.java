@@ -35,7 +35,7 @@ public class ChatViewModel extends ViewModel {
     }
 
     public LiveData<List<DataChatPerson>> getAllChatPersonsLiveData() {
-        return loadChats();
+        return chatRepository.getAllChatPersonsDataLiveData();
     }
     public List<DataChatPerson> getAllChatPersons() {
         return chatRepository.getAllChatPersons().getValue();
@@ -57,9 +57,6 @@ public class ChatViewModel extends ViewModel {
 
             }
         });
-    }
-    protected LiveData<List<DataChatPerson>> loadChats(){
-        return chatRepository.getAllChatPersonsDataLiveData();
     }
 }
 
