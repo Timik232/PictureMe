@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.coursework.Database.DataChatPerson;
-import com.example.coursework.Repository.Chat_Person;
 
 import java.util.ArrayList;
 import java.util.List;

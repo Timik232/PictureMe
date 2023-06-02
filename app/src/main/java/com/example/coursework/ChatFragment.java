@@ -41,12 +41,9 @@ public class ChatFragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(requireContext());
         itemsList.setLayoutManager(manager);
         PersonAdapter adapter = new PersonAdapter(requireContext());
-
-            Log.d("Chat", "Запустили");
-            itemsList.setAdapter(adapter);
-
-            Log.d("Chat", "Прикрепили");
-//            Log.d("whyu", chatViewModel.getAllChatPersons().toString());
+        Log.d("Chat", "Запустили");
+        itemsList.setAdapter(adapter);
+        Log.d("Chat", "Прикрепили");
         chatViewModel.getAllChatPersonsLiveData().observe(getViewLifecycleOwner(), chatPersons -> {
             adapter.setChatPersons(chatPersons);
         });

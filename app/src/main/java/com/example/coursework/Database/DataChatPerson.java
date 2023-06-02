@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
-@Entity(tableName = "texts")
+@Entity(tableName = "chats")
 public class DataChatPerson {
     @NotNull
     @PrimaryKey(autoGenerate = true)

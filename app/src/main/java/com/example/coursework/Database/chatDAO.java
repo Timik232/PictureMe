@@ -17,10 +17,10 @@ public interface chatDAO {
     @Update()
     void updateLastMessage(DataChatPerson chatPerson);
 
-    @Query("SELECT * from texts where `name`=(:name)")
+    @Query("SELECT * from chats where `name`=(:name)")
     DataChatPerson getChat(String name);
 
-    @Query("SELECT * FROM texts")
+    @Query("SELECT * FROM chats")
     LiveData<List<DataChatPerson>> getAllChatPersons();
 
 }

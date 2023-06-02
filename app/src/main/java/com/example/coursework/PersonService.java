@@ -3,8 +3,6 @@ package com.example.coursework;
 
 import android.util.Log;
 
-import com.example.coursework.Repository.Chat_Person;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
