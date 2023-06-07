@@ -1,6 +1,7 @@
 package com.example.coursework;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -28,26 +30,22 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(imageView.getContext(), fio.getText(), Toast.LENGTH_SHORT).show();
-                    Log.i(TAG, fio.getText().toString());
-                }
-            });
             this.fio = itemView.findViewById(R.id.fio);
             this.text = itemView.findViewById(R.id.person_text);
             this.date = itemView.findViewById(R.id.person_time);
             this.imageView = itemView.findViewById(R.id.ava);
         }
     }
-
     private final LayoutInflater inflater;
     private List<DataChatPerson> items;
-    public PersonAdapter(Context context) {
+    private NavController navController;
+    public PersonAdapter(Context context, NavController navController) {
         this.inflater = LayoutInflater.from(context);
         this.items = new ArrayList<>();
+        this.navController = navController;
     }
+
+
 
     @NonNull
     @Override
@@ -63,7 +61,14 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         holder.date.setText(item.getLast_date());
         holder.imageView.setImageResource(item.getPhoto());
         Glide.with(holder.imageView.getContext()).load(item.getPhoto()).circleCrop().into(holder.imageView);
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("person", holder.fio.getText().toString());
+                navController.navigate(R.id.one_chat, bundle);
+            }
+        });
     }
     @Override
     public int getItemCount() {

@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +41,8 @@ public class ChatFragment extends Fragment {
         RecyclerView itemsList =  view.findViewById(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(requireContext());
         itemsList.setLayoutManager(manager);
-        PersonAdapter adapter = new PersonAdapter(requireContext());
+        NavController navController = Navigation.findNavController(view);
+        PersonAdapter adapter = new PersonAdapter(requireContext(), navController);
         Log.d("Chat", "Запустили");
         itemsList.setAdapter(adapter);
         Log.d("Chat", "Прикрепили");

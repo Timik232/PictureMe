@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +41,8 @@ public class ListFragment extends Fragment {
         RecyclerView itemsList =  view.findViewById(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(requireContext());
         itemsList.setLayoutManager(manager);
-        PortfolioAdapter adapter = new PortfolioAdapter(requireContext());
+        NavController navController = Navigation.findNavController(view);
+        PortfolioAdapter adapter = new PortfolioAdapter(requireContext(), navController);
         Log.d("Chat", "Запустили");
         itemsList.setAdapter(adapter);
         Log.d("Chat", "Прикрепили");

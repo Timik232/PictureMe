@@ -7,4 +7,9 @@
     <string name="textExplainChange">Введите текст для изменения последнего сообщения у Кирилла Евдокимова</string>
     <string name="findPhotographer">Вызвать фотографа</string>
     <string name="openPortfolio">Открыть портфолио</string>
+    <string name="rating">Рейтинг</string>
+    <string name="description_photographer">Описание</string>
+    <string name="photos_text">Фотографии</string>
+    <string name="cost_text">Стоимость</string>
+    <string name="enter_message">Введите сообщение</string>
 </resources>

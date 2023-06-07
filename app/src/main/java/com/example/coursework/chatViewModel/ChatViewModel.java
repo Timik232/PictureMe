@@ -41,5 +41,8 @@ public class ChatViewModel extends ViewModel {
     public LiveData<List<PortfolioPerson>> getAllPortfolioLiveData(){
         return chatRepository.getAllPortfolioLiveData();
     }
+    public PortfolioPerson getPortfolio(String name){
+        return chatRepository.getPortfolio(name);
+    }
 }
 

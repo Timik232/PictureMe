@@ -23,11 +23,28 @@
         android:name="com.example.coursework.ChatFragment"
         android:label="Чаты"
         tools:layout="@layout/chats_fragment" />
+
     <action
         android:id="@+id/action_toChats"
         app:destination="@id/chatsFragment" />
     <action
         android:id="@+id/action_toPhotographers"
         app:destination="@id/listFragment" />
+    <fragment
+        android:id="@+id/portfolio"
+        android:name="com.example.coursework.Portfolio"
+        android:label="Портфолио"
+        tools:layout="@layout/portfolio" />
+    <action
+        android:id="@+id/action_toPortfolio"
+        app:destination="@id/portfolio" />
+    <fragment
+        android:id="@+id/one_chat"
+        android:name="com.example.coursework.OneChat"
+        android:label="Чат"
+        tools:layout="@layout/one_chat_fragment" />
+    <action
+        android:id="@+id/action_toChat"
+        app:destination="@id/one_chat" />
 
 </navigation>

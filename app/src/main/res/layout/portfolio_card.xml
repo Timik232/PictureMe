@@ -84,13 +84,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/person_text" />
 
-    <Button
+    <TextView
         android:id="@+id/open"
         android:layout_width="270dp"
         android:layout_height="38dp"
         android:background="@drawable/rounded_button"
         android:text="@string/openPortfolio"
         android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/cost"
         app:layout_constraintTop_toBottomOf="@id/person_text" />

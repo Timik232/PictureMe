@@ -63,8 +63,8 @@ public class ChatRepository {
     public DataChatPerson getChat(String name){
         return chatPersonDao.getChat(name);
     }
-    public void getPortfolio(String name){
-        portfolioDao.getPortfolio(name);
+    public PortfolioPerson getPortfolio(String name){
+        return portfolioDao.getPortfolio(name);
     }
     public LiveData<List<PortfolioPerson>> getAllPortfolioLiveData(){
         return portfolioDao.getAllPortfolio();
