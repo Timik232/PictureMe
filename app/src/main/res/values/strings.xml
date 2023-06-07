@@ -5,4 +5,6 @@
     <string name="feed">Feed</string>
     <string name="editChange">Введите текст </string>
     <string name="textExplainChange">Введите текст для изменения последнего сообщения у Кирилла Евдокимова</string>
+    <string name="findPhotographer">Вызвать фотографа</string>
+    <string name="openPortfolio">Открыть портфолио</string>
 </resources>

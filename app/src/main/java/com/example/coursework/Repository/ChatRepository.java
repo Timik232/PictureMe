@@ -9,7 +9,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.coursework.Database.AppDataBase;
 import com.example.coursework.Database.DataChatPerson;
+import com.example.coursework.Database.PortfolioPerson;
 import com.example.coursework.Database.chatDAO;
+import com.example.coursework.Database.portfolioDAO;
 import com.example.coursework.R;
 
 import java.util.ArrayList;
@@ -17,7 +19,9 @@ import java.util.List;
 
 public class ChatRepository {
     private final chatDAO chatPersonDao;
+    private final portfolioDAO portfolioDao;
     private LiveData<List<DataChatPerson>> allChatPersonsLiveData;
+    private LiveData<List<PortfolioPerson>> allPortfolioLiveData;
 
     private static ChatRepository instance;
 
@@ -32,13 +36,12 @@ public class ChatRepository {
 
         AppDataBase db = AppDataBase.getDatabase();
         this.chatPersonDao = db.chatDao();
-        updateChatPersonsLiveData();
-        chatPersonDao.saveChat(new DataChatPerson("Кирилл Евдокимов", R.drawable.ava,  "Спасибо большое!!!", "10:00"));
-        chatPersonDao.saveChat(new DataChatPerson("Ярослав Акатьев", R.drawable.rss,  "Здравствуйте!", "11:30"));
-        chatPersonDao.saveChat(new DataChatPerson("Валера Чечня", R.drawable.valera,  "Ну как там с деньгами?", "12:45"));
-        chatPersonDao.saveChat(new DataChatPerson("Бретт Оутри", R.drawable.stahli,  "Классно получилось", "22:40"));
-        chatPersonDao.saveChat(new DataChatPerson("Дарья Аникова", R.drawable.dasha,  "Рад помочь) ", "00:00"));
-        Log.d("Try", chatPersonDao.getChat("Бретт Оутри").toString());
+        this.portfolioDao = db.portfolioDao();
+        this.allPortfolioLiveData = portfolioDao.getAllPortfolio();
+        this.allChatPersonsLiveData = chatPersonDao.getAllChatPersons();
+        //updateChatPersonsLiveData();
+
+
     }
 
     public LiveData<List<DataChatPerson>> getAllChatPersonsDataLiveData() {
@@ -56,5 +59,14 @@ public class ChatRepository {
     }
     public void updateChat(DataChatPerson chat) {
         chatPersonDao.updateLastMessage(chat);
+    }
+    public DataChatPerson getChat(String name){
+        return chatPersonDao.getChat(name);
+    }
+    public void getPortfolio(String name){
+        portfolioDao.getPortfolio(name);
+    }
+    public LiveData<List<PortfolioPerson>> getAllPortfolioLiveData(){
+        return portfolioDao.getAllPortfolio();
     }
 }

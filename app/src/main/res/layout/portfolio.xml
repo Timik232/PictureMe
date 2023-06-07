@@ -4,16 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/photographer_fragment"
+    android:id="@+id/chats_fragment"
     android:gravity="center"
     android:orientation="vertical"
     android:screenOrientation="portrait"
-    tools:context=".ListFragment">
+    tools:context=".ChatFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

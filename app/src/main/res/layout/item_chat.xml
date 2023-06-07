@@ -8,7 +8,6 @@
     android:paddingStart="10dp"
     android:paddingTop="5dp"
     android:paddingEnd="10dp"
-    tools:context=".Repository.Chat_Person"
     android:paddingBottom="5dp">
 
     <ImageView
@@ -27,7 +26,7 @@
         android:layout_width="283dp"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
-        android:text="@{Chat_Person.name}"
+        android:text="@{DataChatPerson.name}"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/ava"
@@ -39,7 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:paddingStart="12dp"
-        android:text="@{Chat_Person.last_message}"
+        android:gravity="center"
+        android:text="@{DataChatPerson.last_message}"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/ava"
         app:layout_constraintTop_toBottomOf="@id/fio" />
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:paddingStart="2dp"
-        android:text="@{Chat_Person.last_date}"
+        android:text="@{DataChatPerson.last_date}"
         android:textSize="14sp"
         android:gravity="center"
         app:layout_constraintStart_toEndOf="@id/person_text"

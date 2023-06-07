@@ -14,16 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.coursework.Database.DataChatPerson;
+import com.example.coursework.Database.PortfolioPerson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
+public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public String TAG = "RecyclerAdapter";
+        public String TAG = "PortfolioAdapter";
         final TextView fio;
         final TextView text;
-        final TextView date;
+        final TextView cost;
+        final TextView rate;
+        final ImageView icon;
         final ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -37,14 +40,16 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
             });
             this.fio = itemView.findViewById(R.id.fio);
             this.text = itemView.findViewById(R.id.person_text);
-            this.date = itemView.findViewById(R.id.person_time);
+            this.cost = itemView.findViewById(R.id.cost);
+            this.rate = itemView.findViewById(R.id.rate);
+            this.icon = itemView.findViewById(R.id.icon);
             this.imageView = itemView.findViewById(R.id.ava);
         }
     }
 
     private final LayoutInflater inflater;
-    private List<DataChatPerson> items;
-    public PersonAdapter(Context context) {
+    private List<PortfolioPerson> items;
+    public PortfolioAdapter(Context context) {
         this.inflater = LayoutInflater.from(context);
         this.items = new ArrayList<>();
     }
@@ -52,16 +57,22 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_chat, parent, false);
+        View view = inflater.inflate(R.layout.portfolio_card, parent, false);
         return new ViewHolder(view);
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DataChatPerson item = items.get(position);
-        holder.text.setText(item.getLast_message());
+        PortfolioPerson item = items.get(position);
+        String inputText = item.getText();
+        if (inputText.length() > 165) {
+            inputText = inputText.substring(0, 165) + "...";
+        }
+        holder.text.setText(inputText);
         holder.fio.setText(item.getName());
-        holder.date.setText(item.getLast_date());
         holder.imageView.setImageResource(item.getPhoto());
+        holder.cost.setText(item.getCost());
+        holder.rate.setText(item.getRate());
+        holder.icon.setImageResource(item.getIcon());
         Glide.with(holder.imageView.getContext()).load(item.getPhoto()).circleCrop().into(holder.imageView);
 
     }
@@ -69,11 +80,12 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
     public int getItemCount() {
         return items.size();
     }
-    public void setChatPersons(List<DataChatPerson> chatPersons){
-//        this.items.clear();
-        this.items.addAll(chatPersons);
+    public void setChatPersons(List<PortfolioPerson> portfolioPersons){
+        this.items.clear();
+        this.items.addAll(portfolioPersons);
         Log.d("WOORK", "It's OK");
         notifyDataSetChanged();
     }
 }
+
 

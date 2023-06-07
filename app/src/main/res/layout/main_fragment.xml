@@ -11,4 +11,40 @@
 
 
 
+
+    <Button
+        android:id="@+id/findPhotographer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/rounded_button"
+        android:layout_marginBottom="15dp"
+        android:text="@string/findPhotographer" />
+
+
+    <com.yandex.mapkit.mapview.MapView
+        android:id="@+id/mapview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </com.yandex.mapkit.mapview.MapView>
+
+    <ImageView
+        android:id="@+id/nearMe"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/nearme"
+        android:background="@drawable/round_shape"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="70dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="10dp"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

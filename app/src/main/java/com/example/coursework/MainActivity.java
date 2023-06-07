@@ -17,6 +17,7 @@ import com.example.coursework.databinding.ActivityMainBinding;
 import com.example.coursework.databinding.MainFragmentBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.yandex.mapkit.MapKitFactory;
 
 public class MainActivity extends AppCompatActivity {
     @Override

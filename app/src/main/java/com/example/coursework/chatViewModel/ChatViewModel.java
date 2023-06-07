@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.coursework.Database.DataChatPerson;
+import com.example.coursework.Database.PortfolioPerson;
 import com.example.coursework.Repository.ChatRepository;
 
 import java.util.List;
@@ -33,7 +34,12 @@ public class ChatViewModel extends ViewModel {
         new Thread(() -> {
                 chatRepository.updateChat(chatPerson);
         }).start();
-
+    }
+    public DataChatPerson getChatPerson(String name){
+        return chatRepository.getChat(name);
+    }
+    public LiveData<List<PortfolioPerson>> getAllPortfolioLiveData(){
+        return chatRepository.getAllPortfolioLiveData();
     }
 }
 
