@@ -1,10 +1,9 @@
 package com.example.coursework;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,14 +18,12 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
-import com.bumptech.glide.Glide;
+import com.example.coursework.chatViewModel.AppViewModel;
 import com.example.coursework.databinding.MainFragmentBinding;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.shape.MaterialShapeDrawable;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKit;
 import com.yandex.mapkit.MapKitFactory;
@@ -38,25 +35,26 @@ import com.yandex.mapkit.location.LocationStatus;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.mapview.MapView;
-import com.yandex.runtime.image.ImageProvider;
-
 
 
 public class MainFragment extends Fragment {
     private MapView mapview;
-    private MapKit mapKit;
-    private PlacemarkMapObject currentPlacemark;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
-//    private void createPlacemark(Point point) {
-//        // Создание стиля отметки
-//        PlacemarkStyle placemarkStyle = new PlacemarkStyle();
-//        placemarkStyle.setIcon(ImageProvider.fromResource(getApplicationContext(), R.drawable.icon_placemark));
-//
-//        // Создание отметки с использованием стиля
-//        currentPlacemark = yandexMap.getMapObjects().addPlacemark(point, placemarkStyle);
-//    }
+    private AppViewModel appViewModel;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        appViewModel = new ViewModelProvider(this).get(AppViewModel.class);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        if (sharedPreferences.getString("username", "").equals("")) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("username", "Комолов Тимур");
+            editor.putString("email", "photographer@email.com");
+            editor.apply();
+        }
+        appViewModel.setPreferences(sharedPreferences);
 
-
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,7 +67,6 @@ public class MainFragment extends Fragment {
                 new CameraPosition(new Point(55.751574, 37.573856), 11.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 2),
                 null);
-
         return view;
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
@@ -83,22 +80,15 @@ public class MainFragment extends Fragment {
             Toast.makeText(requireContext().getApplicationContext(), "Нет доступных фотографов", Toast.LENGTH_SHORT).show();
             Log.d("Pressed", "Button was pressed");
         });
+        ImageView profile = view.findViewById(R.id.profile_icon);
+        profile.setOnClickListener(v ->{
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.profile);
+        });
         ImageView nearMe = view.findViewById(R.id.nearMe);
-
-//        mapview.getMap().addTapListener(new MapView.MapTapListener() {
-//            @Override
-//            public boolean onMapTapped(@NonNull final PointF point) {
-//                PlacemarkMapObject placemark = mapObjects.addPlacemark(new Point(point.x, point.y));
-//                placemark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.icon));
-//                return true;
-//            }
-//        });
-        //MaterialShapeDrawable shapeDrawable = MaterialShapeDrawable.createWithElevation(this, 8f);
-
-        //nearMe
         nearMe.setOnClickListener(v ->{
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                Log.d("move", "kuda");
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {                Log.d("move", "kuda");
+
                 locationManager.requestSingleUpdate(new LocationListener() {
                     @Override
                     public void onLocationUpdated(@NonNull Location location) {

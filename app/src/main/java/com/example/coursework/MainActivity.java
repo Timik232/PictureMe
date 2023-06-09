@@ -1,6 +1,5 @@
 package com.example.coursework;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -10,15 +9,10 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
-import com.example.coursework.chatViewModel.ChatViewModel;
 import com.example.coursework.databinding.ActivityMainBinding;
-import com.example.coursework.databinding.MainFragmentBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.yandex.mapkit.MapKitFactory;
 
 public class MainActivity extends AppCompatActivity {
     @Override

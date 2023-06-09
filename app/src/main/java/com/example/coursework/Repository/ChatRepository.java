@@ -2,6 +2,7 @@ package com.example.coursework.Repository;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -9,8 +10,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.coursework.Database.AppDataBase;
 import com.example.coursework.Database.DataChatPerson;
+import com.example.coursework.Database.Message;
 import com.example.coursework.Database.PortfolioPerson;
 import com.example.coursework.Database.chatDAO;
+import com.example.coursework.Database.messageDAO;
 import com.example.coursework.Database.portfolioDAO;
 import com.example.coursework.R;
 
@@ -20,6 +23,8 @@ import java.util.List;
 public class ChatRepository {
     private final chatDAO chatPersonDao;
     private final portfolioDAO portfolioDao;
+    private final messageDAO messageDao;
+    private SharedPreferences user;
     private LiveData<List<DataChatPerson>> allChatPersonsLiveData;
     private LiveData<List<PortfolioPerson>> allPortfolioLiveData;
 
@@ -37,8 +42,10 @@ public class ChatRepository {
         AppDataBase db = AppDataBase.getDatabase();
         this.chatPersonDao = db.chatDao();
         this.portfolioDao = db.portfolioDao();
+        this.messageDao = db.messageDao();
         this.allPortfolioLiveData = portfolioDao.getAllPortfolio();
         this.allChatPersonsLiveData = chatPersonDao.getAllChatPersons();
+
         //updateChatPersonsLiveData();
 
 
@@ -68,5 +75,31 @@ public class ChatRepository {
     }
     public LiveData<List<PortfolioPerson>> getAllPortfolioLiveData(){
         return portfolioDao.getAllPortfolio();
+    }
+    public LiveData<List<Message>> getChatMessages(Integer chatId){
+        return messageDao.getChatMessages(chatId);
+    }
+    public void saveMessage(Message message){
+        messageDao.saveMessage(message);
+    }
+    public void setPreferences(SharedPreferences user){
+        this.user = user;
+    }
+    public SharedPreferences getUser(){
+        return user;
+    }
+    public void setUserName(String name){
+        SharedPreferences.Editor editor = user.edit();
+        editor.putString("username",name);
+        editor.apply();
+    }
+    public void setUserEmail(String email){
+        SharedPreferences.Editor editor = user.edit();
+        editor.putString("email",email);
+        editor.apply();
+    }
+    public String getLastMessage(Integer id){
+        List<Message> message = chatPersonDao.getLastMessage(id);
+        return message.get(0).getText();
     }
 }

@@ -15,11 +15,12 @@ public class DataChatPerson {
     private String name;
     @ColumnInfo(name = "photo")
     private int photo;
+    @ColumnInfo(name = "user")
+    private String user;
     @ColumnInfo(name = "last_message")
     private String last_message;
     @ColumnInfo(name = "last_data")
     private String last_date;
-
     public void setId(@NotNull Integer id) {
         this.id = id;
     }
@@ -29,11 +30,12 @@ public class DataChatPerson {
         return id;
     }
 
-    public DataChatPerson(String name, int photo, String last_message, String last_date) {
+    public DataChatPerson(String name, int photo, String last_message, String last_date, String user) {
         this.name = name;
         this.photo = photo;
         this.last_date = last_date;
         this.last_message = last_message;
+        this.user = user;
     }
 
     public void setLast_data(String last_date) {
@@ -62,5 +64,8 @@ public class DataChatPerson {
 
     public String getLast_message() {
         return last_message;
+    }
+    public String getUser(){
+        return user;
     }
 }

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/message_wrapper"
+    android:gravity="start"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/back"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:background="@drawable/border"
     android:orientation="horizontal"
+    android:layout_marginBottom="10dp"
     android:paddingStart="10dp"
     android:paddingTop="5dp"
     android:paddingEnd="10dp"
@@ -15,9 +23,9 @@
         android:id="@+id/person_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="350dp"
-        android:paddingStart="12dp"
+        android:maxWidth="288dp"
         android:gravity="start"
+        android:textColor="#000000"
         android:text="Сообщение Сообщение Сообщение Сообщение СообщениеСообщение Сообщение Сообщение"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,12 +35,14 @@
     <TextView
         android:id="@+id/person_time"
         android:layout_width="wrap_content"
-        android:layout_height="26dp"
+        android:maxWidth="60dp"
+        android:layout_height="wrap_content"
         android:gravity="bottom"
         android:paddingStart="2dp"
         android:text="11:00"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@id/person_text"
-        app:layout_constraintBottom_toBottomOf="@id/person_text"/>
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/person_text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

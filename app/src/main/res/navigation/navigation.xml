@@ -46,5 +46,13 @@
     <action
         android:id="@+id/action_toChat"
         app:destination="@id/one_chat" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.coursework.Profile"
+        android:label="Профиль"
+        tools:layout="@layout/profile" />
+    <action
+        android:id="@+id/action_toProfile"
+        app:destination="@id/profile" />
 
 </navigation>

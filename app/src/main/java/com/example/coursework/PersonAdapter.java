@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -56,7 +55,11 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DataChatPerson item = items.get(position);
-        holder.text.setText(item.getLast_message());
+        String inputText = item.getLast_message();
+        if (inputText.length() > 25) {
+            inputText = inputText.substring(0, 20) + "...";
+        }
+        holder.text.setText(inputText);
         holder.fio.setText(item.getName());
         holder.date.setText(item.getLast_date());
         holder.imageView.setImageResource(item.getPhoto());
@@ -75,7 +78,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         return items.size();
     }
     public void setChatPersons(List<DataChatPerson> chatPersons){
-//        this.items.clear();
+        this.items.clear();
         this.items.addAll(chatPersons);
         Log.d("WOORK", "It's OK");
         notifyDataSetChanged();

@@ -48,11 +48,11 @@
         android:id="@+id/person_time"
         android:layout_width="wrap_content"
         android:layout_height="26dp"
-        android:paddingStart="2dp"
+        android:paddingEnd="10dp"
         android:text="@{DataChatPerson.last_date}"
         android:textSize="14sp"
         android:gravity="center"
-        app:layout_constraintStart_toEndOf="@id/person_text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fio" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

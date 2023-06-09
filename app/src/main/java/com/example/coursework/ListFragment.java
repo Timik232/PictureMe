@@ -5,9 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,18 +14,17 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.coursework.Database.DataChatPerson;
-import com.example.coursework.chatViewModel.ChatViewModel;
+import com.example.coursework.chatViewModel.AppViewModel;
 import com.example.coursework.databinding.ChatsFragmentBinding;
 
 public class ListFragment extends Fragment {
 
-    private ChatViewModel chatViewModel;
+    private AppViewModel appViewModel;
     ChatsFragmentBinding binding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
+        appViewModel = new ViewModelProvider(this).get(AppViewModel.class);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +42,7 @@ public class ListFragment extends Fragment {
         Log.d("Chat", "Запустили");
         itemsList.setAdapter(adapter);
         Log.d("Chat", "Прикрепили");
-        chatViewModel.getAllPortfolioLiveData().observe(getViewLifecycleOwner(), portfolioPeople -> {
+        appViewModel.getAllPortfolioLiveData().observe(getViewLifecycleOwner(), portfolioPeople -> {
             adapter.setChatPersons(portfolioPeople);
         });
 

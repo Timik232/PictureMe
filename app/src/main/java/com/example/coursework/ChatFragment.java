@@ -8,27 +8,22 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.coursework.Database.DataChatPerson;
-import com.example.coursework.chatViewModel.ChatViewModel;
+import com.example.coursework.chatViewModel.AppViewModel;
 import com.example.coursework.databinding.ChatsFragmentBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ChatFragment extends Fragment {
-    private ChatViewModel chatViewModel;
+    private AppViewModel appViewModel;
     ChatsFragmentBinding binding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
+        appViewModel = new ViewModelProvider(this).get(AppViewModel.class);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +41,7 @@ public class ChatFragment extends Fragment {
         Log.d("Chat", "Запустили");
         itemsList.setAdapter(adapter);
         Log.d("Chat", "Прикрепили");
-        chatViewModel.getAllChatPersonsLiveData().observe(getViewLifecycleOwner(), chatPersons -> {
+        appViewModel.getAllChatPersonsLiveData().observe(getViewLifecycleOwner(), chatPersons -> {
             adapter.setChatPersons(chatPersons);
         });
 

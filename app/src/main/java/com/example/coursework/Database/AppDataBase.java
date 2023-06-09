@@ -2,7 +2,6 @@ package com.example.coursework.Database;
 
 import static com.example.coursework.PictureMe.getAppContext;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -15,7 +14,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.coursework.R;
 import java.util.Random;
 
-@Database(entities = {DataChatPerson.class, PortfolioPerson.class}, version = 9)
+@Database(entities = {DataChatPerson.class, PortfolioPerson.class, Message.class}, version = 10)
 public abstract class AppDataBase extends RoomDatabase {
     private static final String DATABASE_NAME = "PictureMe";
     private static AppDataBase instance;
@@ -72,15 +71,18 @@ public abstract class AppDataBase extends RoomDatabase {
 
         private chatDAO chatDao;
         private portfolioDAO portfolioDao;
+        private messageDAO messageDao;
         String[] names = new String[11];
         int[] photos;
         String[] portfolios;
         String [] last_messages;
+        String[] times;
         int[] icons;
 
         private DbAsyncTask(AppDataBase db) {
             chatDao = db.chatDao();
             portfolioDao = db.portfolioDao();
+            messageDao = db.messageDao();
             names[0] = "Кирилл Евдокимов";
             names[1] = "Олег Вохрин";
             names[2] = "Валера Чечня";
@@ -117,10 +119,10 @@ public abstract class AppDataBase extends RoomDatabase {
                     "Здравствуйте!",
                     "Ну как там с деньгами?",
                     "Классно получилось",
-                    "Рад помочь)",
+                    "Рада помочь)",
                     "Эта особенно понравилась",
                     "Поставлю на аватарку",
-                    "Красотка",
+                    "Красота",
                     "Харош",
                     "Ладно точка",
                     "Я, конечно, всё понимаю..."
@@ -130,13 +132,23 @@ public abstract class AppDataBase extends RoomDatabase {
                     R.drawable.basic,
                     R.drawable.auto
             };
+            times = new String[11];
+            for (int i = 0; i < 11; i++){
+                times[i] =  generateRandomTime();
+            }
         }
         @Override
         protected Void doInBackground(Void... voids) {
             if (chatDao.getChat("Кирилл Евдокимов") == null) {
                 Log.d("DOCallback", "do you do");
                 for (int i = 0; i < 11; i++){
-                    chatDao.saveChat(new DataChatPerson(names[i], photos[i], last_messages[i], generateRandomTime()));
+                    chatDao.saveChat(new DataChatPerson(names[i], photos[i], last_messages[i], times[i], "Комолов Тимур"));
+                }
+                for (int i = 0; i < 11; i++){
+                    messageDao.saveMessage(new Message(names[i], chatDao.getChat(names[i]).getId(),
+                            last_messages[i], generateRandomTime(),
+                            times[i]
+                    ));
                 }
             }
             if (portfolioDao.getPortfolio("Кирилл Евдокимов") == null){
@@ -178,4 +190,5 @@ public abstract class AppDataBase extends RoomDatabase {
     }
     public abstract chatDAO chatDao();
     public abstract portfolioDAO portfolioDao();
+    public abstract messageDAO messageDao();
 }

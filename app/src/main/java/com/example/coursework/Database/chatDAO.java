@@ -22,5 +22,9 @@ public interface chatDAO {
 
     @Query("SELECT * FROM chats")
     LiveData<List<DataChatPerson>> getAllChatPersons();
+    @Query("SELECT * FROM message WHERE chatId = :chatId ORDER BY id DESC LIMIT 1 ")
+    List<Message> getLastMessage(Integer chatId);
+    @Query("SELECT * from chats where `id`=(:id)")
+    DataChatPerson getChatById(Integer id);
 
 }

@@ -18,20 +18,21 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.coursework.Database.PortfolioPerson;
-import com.example.coursework.chatViewModel.ChatViewModel;
+import com.example.coursework.chatViewModel.AppViewModel;
 import com.example.coursework.databinding.PortfolioBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Portfolio extends Fragment {
+    private static final String BASE_URL = "https://api.unsplash.com/";
     private static final String ACCESS_KEY = "CFtVzrPAZxDoWAyt2C-XRFIdaVW84vPYRc1SHL42FMY";
     PortfolioBinding binding;
-    private ChatViewModel chatViewModel;
+    private AppViewModel appViewModel;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
+        appViewModel = new ViewModelProvider(this).get(AppViewModel.class);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +46,7 @@ public class Portfolio extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             String name = bundle.getString("portfolio");
-            PortfolioPerson portfolio = chatViewModel.getPortfolio(name);
+            PortfolioPerson portfolio = appViewModel.getPortfolio(name);
             TextView fio = binding.fio;
             fio.setText(portfolio.getName());
             TextView rate = binding.rate;
@@ -62,10 +63,13 @@ public class Portfolio extends Fragment {
         }
         ViewPager2 viewPager = binding.viewPager;
         List<Integer> photoList = new ArrayList<>();
+        photoList.add(R.drawable.nastya);
         photoList.add(R.drawable.ava);
         photoList.add(R.drawable.valera);
         photoList.add(R.drawable.masha);
-        photoList.add(R.drawable.nastya);
+        photoList.add(R.drawable.denis);
+        photoList.add(R.drawable.roman);
+        photoList.add(R.drawable.dasha);
         PhotoAdapter adapter = new PhotoAdapter(photoList);
         viewPager.setAdapter(adapter);
         Button chat = binding.open;
